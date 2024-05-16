@@ -3,9 +3,7 @@ import { supabase } from "./lib/supabase";
 import { Session } from "@supabase/supabase-js";
 import LoadingPage from "./components/Loading";
 import Navbar from "./components/Navbar";
-import SetKeyDialogForm from "./components/SetKeyDialogForm";
-import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
-import { KeySquareIcon } from "lucide-react";
+import SetKeyDialog from "./components/SetKeyDialog";
 
 export type userData = {
   session: Session | null;
@@ -65,16 +63,8 @@ export const UserDataProvider = ({ children }: providerProps) => {
       ) : !session ? (
         children
       ) : !encryptionKey ? (
-        <div className="flex flex-col items-center justify-center h-[100vh]">
-          <Dialog>
-            <DialogTrigger asChild>
-              <button className="p-2 font-semibold px-10 hover:bg-zinc-100 bg-white group rounded-sm shadow-md flex gap-2 items-center">
-                Set Encryption Key
-                <KeySquareIcon className="w-8 h-8 text-blueMain" />
-              </button>
-            </DialogTrigger>
-            <SetKeyDialogForm />
-          </Dialog>
+        <div className="flex flex-col items-center justify-center h-[70vh]">
+          <SetKeyDialog trigger="page" />
         </div>
       ) : (
         <>
