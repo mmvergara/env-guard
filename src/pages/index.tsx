@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useToast } from "@/components/ui/use-toast";
 import { signInSchema, signUpSchema } from "@/lib/schemas";
 import { supabase } from "@/lib/supabase";
 import { useState } from "react";
 
 const IndexPage = () => {
+  const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [isSignIn, setIsLogin] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -32,12 +34,20 @@ const IndexPage = () => {
     });
 
     if (error?.issues && error.issues.length > 0) {
-      setError(error.issues[0].message);
+      return setError(error.issues[0].message);
     }
 
-    await supabase.auth.signInWithPassword({
+    const { error: AuthError } = await supabase.auth.signInWithPassword({
       email,
       password,
+    });
+
+    if (AuthError) {
+      return setError(AuthError.message);
+    }
+
+    toast({
+      title: "Logged in successfully",
     });
   };
   const signUp = async () => {
@@ -47,19 +57,25 @@ const IndexPage = () => {
       confirmPassword,
     });
     if (error?.issues && error.issues.length > 0) {
-      setError(error.issues[0].message);
+      return setError(error.issues[0].message);
     }
 
-    await supabase.auth.signUp({
+    const { error: AuthError } = await supabase.auth.signUp({
       email,
       password,
     });
+
+    if (AuthError) {
+      return setError(AuthError.message);
+    }
+
+    toast({
+      title: "Account created successfully",
+      description: "You are now logged in",
+    });
   };
 
-  const handleChangeAuthState = () => {
-    setIsLogin((prev) => !prev);
-  };
-
+  const handleChangeAuthState = () => setIsLogin((prev) => !prev);
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormValues((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -67,15 +83,15 @@ const IndexPage = () => {
   return (
     <main className="bg-blueMain h-[100vh] justify-center  flex">
       <form
-        className="bg-greyMain p-4 py-8 mx-2 w-full max-w-[500px] h-fit mt-[20vh] flex flex-col glass gap-2"
+        className="bg-greyMain p-4  mx-2 w-full max-w-[500px] h-fit mt-[20vh] flex flex-col glass gap-2"
         onSubmit={handleFormSubmit}
       >
-        <div className="flex flex-col">
+        <div className="flex flex-col pb-2">
           <h1 className="font-bold text-xl text-center">
             ENV Guard | {isSignIn ? " Sign In" : " Sign Up"}
           </h1>
           <p className="font-semibold text-center tracking-wide ">
-            Keeping your <span className="text-blueMain">ENV</span>
+            Keeping your <span className="text-cyan-600 font-bold">Env</span>
             ironment safe.
           </p>
         </div>
@@ -83,15 +99,18 @@ const IndexPage = () => {
         <Label htmlFor="email">Email</Label>
         <Input
           placeholder="Enter your email"
+          type="email"
           name="email"
+          className="bg-zinc-200"
           value={email}
           onChange={handleInputChange}
         />
         <Label htmlFor="password">Password</Label>
         <Input
-          placeholder="Enter your password"
+          placeholder="●●●●●●●●●●"
           type="password"
           name="password"
+          className="bg-zinc-200"
           value={password}
           onChange={handleInputChange}
         />
@@ -99,16 +118,17 @@ const IndexPage = () => {
           <>
             <Label htmlFor="confirmPassword">Confirm Password</Label>
             <Input
-              placeholder="Enter your password"
+              placeholder="●●●●●●●●●●"
               type="password"
               name="confirmPassword"
+              className="bg-zinc-200"
               value={confirmPassword}
               onChange={handleInputChange}
             />
           </>
         )}
-        <p className="text-red-500 text-center text-sm">Eorrror</p>
-        <Button type="submit"  disabled={isLoading}>
+        <p className="text-red-500 text-center text-sm">{error}</p>
+        <Button type="submit" disabled={isLoading}>
           {isSignIn ? " Sign In" : " Sign Up"}
         </Button>
         <p className="text-center text-md font-semibold tracking-wide">
