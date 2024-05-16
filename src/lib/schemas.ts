@@ -1,18 +1,18 @@
 import { z } from "zod";
 
-export const getValidationErorr = (error: any) => {}
-
 export const signInSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(8, "Password must be at least 8 characters"),
 });
 export type SignInFormValues = z.infer<typeof signInSchema>;
 
 export const signUpSchema = z
   .object({
     email: z.string().email("Invalid email address"),
-    password: z.string().min(8),
-    confirmPassword: z.string().min(8),
+    password: z.string().min(8, "Password must be at least 8 characters"),
+    confirmPassword: z
+      .string()
+      .min(8, "Password must be at least 8 characters"),
   })
   .superRefine((data, ctx) => {
     if (data.password !== data.confirmPassword) {
