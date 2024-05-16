@@ -23,7 +23,7 @@ const Navbar = () => {
   return (
     <nav className="bg-zinc-200 flex items-center justify-between pt-1 shadow-md">
       <span className="pr-[13vw] sm:pr-[4vw]"></span>
-      <SetKeyDialog />
+      <SetKeyDialog trigger="button" />
       {session ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
