@@ -2,11 +2,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
+import { useUserData } from "@/context";
 import { signInSchema, signUpSchema } from "@/lib/schemas";
 import { supabase } from "@/lib/supabase";
 import { useState } from "react";
+import { Navigate } from "react-router-dom";
 
 const IndexPage = () => {
+  const { session } = useUserData();
+  if (session) {
+    return <Navigate to="/projects" />;
+  }
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [isSignIn, setIsLogin] = useState(true);
@@ -27,6 +33,7 @@ const IndexPage = () => {
     }
     setIsLoading(false);
   };
+
   const signIn = async () => {
     const { error } = signInSchema.safeParse({
       email,
@@ -83,7 +90,7 @@ const IndexPage = () => {
   return (
     <main className="bg-blueMain h-[100vh] justify-center  flex">
       <form
-        className="bg-greyMain p-4  mx-2 w-full max-w-[500px] h-fit mt-[20vh] flex flex-col glass gap-2"
+        className="bg-greyMain p-4 rounded-lg mx-2 w-full max-w-[500px] h-fit mt-[20vh] flex flex-col glass gap-2"
         onSubmit={handleFormSubmit}
       >
         <div className="flex flex-col pb-2">
@@ -129,7 +136,13 @@ const IndexPage = () => {
         )}
         <p className="text-red-500 text-center text-sm">{error}</p>
         <Button type="submit" disabled={isLoading}>
-          {isSignIn ? " Sign In" : " Sign Up"}
+          {isSignIn
+            ? isLoading
+              ? "Signing In..."
+              : "Sign In"
+            : isLoading
+            ? "Signing Up..."
+            : "Sign Up"}
         </Button>
         <p className="text-center text-md font-semibold tracking-wide">
           {isSignIn ? "Don't have an account?" : "Already have an account?"}

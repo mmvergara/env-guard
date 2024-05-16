@@ -6,6 +6,7 @@ import IndexPage from "./pages";
 import NotFoundPage from "./pages/NotFoundPage";
 import { UserDataProvider } from "./context";
 import { Toaster } from "./components/ui/toaster";
+import ProjectsPage from "./pages/ProjectsPage";
 
 const router = createBrowserRouter([
   {
@@ -14,15 +15,15 @@ const router = createBrowserRouter([
     errorElement: <NotFoundPage />,
   },
   {
-    path: "/",
-    element: <h1>Projects</h1>,
+    path: "/projects",
+    element: <ProjectsPage />,
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
+    <Toaster />
     <UserDataProvider>
-      <Toaster />
       <RouterProvider router={router} />
     </UserDataProvider>
   </React.StrictMode>

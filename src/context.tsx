@@ -2,10 +2,15 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "./lib/supabase";
 import { Session } from "@supabase/supabase-js";
 import LoadingPage from "./components/Loading";
+import Navbar from "./components/Navbar";
+import SetKeyDialogForm from "./components/SetKeyDialogForm";
+import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
+import { KeySquareIcon } from "lucide-react";
 
 export type userData = {
   session: Session | null;
   encryptionKey: string | null;
+  setKey: (key: string | null) => void;
 };
 type providerProps = {
   children: JSX.Element | JSX.Element[];
@@ -24,8 +29,8 @@ export const useUserData = () => {
 export const UserDataProvider = ({ children }: providerProps) => {
   const [loading, setLoading] = useState(true);
   const [session, setSession] = useState<Session | null>(null);
-  const [EncryptionKey, setEncryptionKey] = useState<string | null>(null);
-
+  const [encryptionKey, setEncryptionKey] = useState<string | null>(null);
+  console.log(encryptionKey);
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       console.log("Session:", session);
@@ -43,14 +48,40 @@ export const UserDataProvider = ({ children }: providerProps) => {
     return () => subscription.unsubscribe();
   }, []);
 
+  const setKey = (key: string | null) => {
+    setEncryptionKey(key);
+  };
+
   const value = {
     session,
-    encryptionKey: EncryptionKey,
+    encryptionKey,
+    setKey,
   };
 
   return (
     <UserDataContext.Provider value={value}>
-      {loading ? <LoadingPage /> : children}
+      {loading ? (
+        <LoadingPage />
+      ) : !session ? (
+        children
+      ) : !encryptionKey ? (
+        <div className="flex flex-col items-center justify-center h-[100vh]">
+          <Dialog>
+            <DialogTrigger asChild>
+              <button className="p-2 font-semibold px-10 hover:bg-zinc-100 bg-white group rounded-sm shadow-md flex gap-2 items-center">
+                Set Encryption Key
+                <KeySquareIcon className="w-8 h-8 text-blueMain" />
+              </button>
+            </DialogTrigger>
+            <SetKeyDialogForm />
+          </Dialog>
+        </div>
+      ) : (
+        <>
+          <Navbar />
+          {children}
+        </>
+      )}
     </UserDataContext.Provider>
   );
 };
