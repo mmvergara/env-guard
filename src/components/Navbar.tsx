@@ -21,19 +21,19 @@ const Navbar = () => {
     });
   };
   return (
-    <nav className="bg-zinc-200 flex items-center justify-between pt-1 shadow-md">
+    <nav className="flex items-center justify-between bg-zinc-200 pt-1 shadow-md">
       <span className="pr-[13vw] sm:pr-[4vw]"></span>
       <SetKeyDialog trigger="button" />
       {session ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="p-2 hover:bg-blueMain group rounded-t-xl ">
-              <GripVerticalIcon className="w-8 h-8 text-blueMain group-hover:text-white " />
+            <button className="group rounded-t-xl p-2 hover:bg-blueMain ">
+              <GripVerticalIcon className="h-8 w-8 text-blueMain transition-colors group-hover:text-white " />
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56">
             <DropdownMenuItem
-              className="flex gap-2 text-red-600 cursor-pointer"
+              className="flex cursor-pointer gap-2 text-red-600"
               onClick={handleLogout}
             >
               <LogOutIcon /> Sign Out
