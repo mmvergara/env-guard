@@ -32,24 +32,24 @@ const SetKeyDialog = ({ trigger }: Props) => {
     <Dialog open={open} onOpenChange={setOpen}>
       {trigger === "button" ? (
         <DialogTrigger asChild>
-          <button className="p-2 hover:bg-blueMain group rounded-t-xl ">
-            <KeySquareIcon className="w-8 h-8 text-blueMain group-hover:text-white " />
+          <button className="group rounded-t-xl p-2 transition-colors hover:bg-blueMain">
+            <KeySquareIcon className="h-8 w-8 text-blueMain group-hover:text-white " />
           </button>
         </DialogTrigger>
       ) : (
         <DialogTrigger asChild>
-          <button className="p-2 font-semibold px-10 hover:bg-zinc-100 bg-white group rounded-sm shadow-md flex gap-2 items-center">
+          <button className="group flex items-center gap-2 rounded-sm bg-white p-2 px-10 font-semibold shadow-md hover:bg-zinc-100">
             Set Encryption Key
-            <KeySquareIcon className="w-8 h-8 text-blueMain" />
+            <KeySquareIcon className="h-8 w-8 text-blueMain" />
           </button>
         </DialogTrigger>
       )}
 
-      <DialogContent className="sm:max-w-[425px] bg-white">
+      <DialogContent className="bg-white sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle className="text-2xl flex gap-2 items-center">
+          <DialogTitle className="flex items-center gap-2 text-2xl">
             Set Encryption Key{" "}
-            <KeySquareIcon className="w-6 h-6 inline-block" />
+            <KeySquareIcon className="inline-block h-6 w-6" />
           </DialogTitle>
           <DialogDescription className="text-sm">
             The encryption key is used to encrypt your data, make sure to keep
@@ -66,7 +66,7 @@ const SetKeyDialog = ({ trigger }: Props) => {
             value={keyValue}
             onChange={(e) => setKeyValue(e.target.value)}
           />
-          <p className="text-green-700 text-xs">
+          <p className="text-xs text-green-700">
             The key is not stored, you will have to re-enter it if you quit this
             tab.
           </p>
