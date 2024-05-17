@@ -88,21 +88,21 @@ const IndexPage = () => {
   };
 
   return (
-    <main className="bg-blueMain h-[100vh] justify-center  flex">
+    <main className="flex h-[100vh] justify-center  bg-blueMain">
       <form
-        className="bg-greyMain p-4 rounded-lg mx-2 w-full max-w-[500px] h-fit mt-[20vh] flex flex-col glass gap-2"
+        className="glass-auth mx-2 mt-[20vh] flex h-fit w-full max-w-[500px] flex-col gap-2 rounded-lg bg-greyMain p-4"
         onSubmit={handleFormSubmit}
       >
         <div className="flex flex-col pb-2">
-          <h1 className="font-bold text-xl text-center">
+          <h1 className="text-center text-xl font-bold">
             ENV Guard | {isSignIn ? " Sign In" : " Sign Up"}
           </h1>
-          <p className="font-semibold text-center tracking-wide ">
-            Keeping your <span className="text-cyan-600 font-bold">Env</span>
+          <p className="text-center font-semibold tracking-wide ">
+            Keeping your <span className="font-bold text-cyan-600">Env</span>
             ironment safe.
           </p>
         </div>
-        <div className="w-full h-[2px] mb-2 bg-blueMain"></div>
+        <div className="mb-2 h-[2px] w-full bg-blueMain"></div>
         <Label htmlFor="email">Email</Label>
         <Input
           placeholder="Enter your email"
@@ -134,21 +134,21 @@ const IndexPage = () => {
             />
           </>
         )}
-        <p className="text-red-500 text-center text-sm">{error}</p>
+        <p className="text-center text-sm text-red-500">{error}</p>
         <Button type="submit" disabled={isLoading}>
           {isSignIn
             ? isLoading
               ? "Signing In..."
               : "Sign In"
             : isLoading
-            ? "Signing Up..."
-            : "Sign Up"}
+              ? "Signing Up..."
+              : "Sign Up"}
         </Button>
-        <p className="text-center text-md font-semibold tracking-wide">
+        <p className="text-md text-center font-semibold tracking-wide">
           {isSignIn ? "Don't have an account?" : "Already have an account?"}
           <span
             onClick={handleChangeAuthState}
-            className="text-blueMain cursor-pointer hover:underline"
+            className="cursor-pointer text-blueMain hover:underline"
           >
             {isSignIn ? " Sign Up" : " Sign In"}
           </span>
