@@ -50,10 +50,11 @@ body {
 }
 ::-webkit-scrollbar {
   width: 2px;
-  height: 4px;
+  height: 10 px;
 }
 ::-webkit-scrollbar-track {
   background: #cbcbcb;
+  border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb {
   background: #76abae;

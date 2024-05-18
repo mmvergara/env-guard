@@ -1,9 +1,6 @@
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useUserData } from "@/context";
 import {
-  ChevronRight,
-  ChevronRightIcon,
   ChevronsRightIcon,
   GlobeIcon,
   PlusSquareIcon,
@@ -16,8 +13,9 @@ const ProjectsPage = () => {
   if (!session) {
     return <Navigate to="/" />;
   }
+
   return (
-    <main className="mx-2 mt-[5vh] flex h-[70vh] max-w-[800px] flex-col rounded-xl bg-zinc-200 p-4 md:mx-auto">
+    <main className="mx-2 mt-[5vh] flex h-[70vh] max-w-[800px] flex-col rounded-xl bg-zinc-200 p-4 shadow-md md:mx-auto">
       <div className="flex items-center justify-between">
         <div className="flex items-center">
           <h1 className="hidden items-center gap-2 rounded-l-3xl  border-y-[2px] border-l-[2px] border-white bg-blueMain px-4 py-[0.54rem] text-sm font-semibold text-white sm:flex">
@@ -25,7 +23,7 @@ const ProjectsPage = () => {
           </h1>
           <Input
             placeholder="Search"
-            className="outlinenone mr-2 rounded-l-3xl rounded-r-3xl border-y-[2px] border-r-[2px] border-white bg-zinc-100 text-sm focus:ring-0 sm:rounded-l-none "
+            className="mr-2 rounded-l-3xl rounded-r-3xl border-y-[2px] border-r-[2px] border-white bg-zinc-100 text-sm font-medium outline-none placeholder:font-medium focus:ring-0 sm:rounded-l-none"
           />
         </div>
         <div className="flex items-center gap-2">

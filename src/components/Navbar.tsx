@@ -13,6 +13,7 @@ import { useUserData } from "@/context";
 const Navbar = () => {
   const { toast } = useToast();
   const { session, setKey } = useUserData();
+
   const handleLogout = async () => {
     await supabase.auth.signOut();
     setKey(null);
