@@ -32,13 +32,13 @@ const SetKeyDialog = ({ trigger }: Props) => {
     <Dialog open={open} onOpenChange={setOpen}>
       {trigger === "button" ? (
         <DialogTrigger asChild>
-          <button className="group rounded-t-xl p-2 transition-colors hover:bg-blueMain">
-            <KeySquareIcon className="h-8 w-8 text-blueMain group-hover:text-white " />
+          <button className="group rounded-t-xl p-2 transition-colors hover:bg-white">
+            <KeySquareIcon className="h-8 w-8 text-white group-hover:text-blueMain" />
           </button>
         </DialogTrigger>
       ) : (
         <DialogTrigger asChild>
-          <button className="group flex items-center gap-2 rounded-sm bg-white p-2 px-10 font-semibold shadow-md hover:bg-zinc-100">
+          <button className="group flex items-center gap-2 rounded-sm bg-white p-10 px-20 font-semibold shadow-md   ">
             Set Encryption Key
             <KeySquareIcon className="h-8 w-8 text-blueMain" />
           </button>

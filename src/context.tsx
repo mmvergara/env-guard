@@ -63,7 +63,7 @@ export const UserDataProvider = ({ children }: providerProps) => {
       ) : !session ? (
         children
       ) : !encryptionKey ? (
-        <div className="flex flex-col items-center justify-center h-[70vh]">
+        <div className="flex h-[70vh] flex-col items-center justify-center">
           <SetKeyDialog trigger="page" />
         </div>
       ) : (

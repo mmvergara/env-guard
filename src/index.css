@@ -37,8 +37,7 @@
 }
 
 body {
-  background-color: #76abae !important;
-  overflow: hidden;
+  background-color: hsl(240, 6%, 92%) !important;
 }
 @layer base {
   * {
@@ -49,19 +48,17 @@ body {
   }
 }
 ::-webkit-scrollbar {
-  width: 2px;
+  width: 10px;
   height: 10 px;
 }
 ::-webkit-scrollbar-track {
   background: #cbcbcb;
-  border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb {
-  background: #76abae;
-  border-radius: 10px;
+  background: #666c6c;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #69a1a4;
+  background: #4b4f4f;
 }
 /* Glass */
 
